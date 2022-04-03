@@ -2,7 +2,7 @@
 require_once 'UserModel.php';
 class LoginModel extends UserModel
 {
-    public  $title = 'User Login Page';
+    public  $title = 'Admin Login Page';
 
     public function login()
     {

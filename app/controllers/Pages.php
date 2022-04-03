@@ -17,5 +17,11 @@ class Pages extends Controller
         $aboutView = new About($this->getModel(), $this);
         $aboutView->output();
     }
+    public function contact(){
+        $viewPath = VIEWS_PATH . 'pages/contact.php';
+        require_once $viewPath;
+        $contactView = new Contact($this->getModel(), $this);
+        $contactView->output();
+    }
 
 }

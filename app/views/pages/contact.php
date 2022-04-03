@@ -1,37 +1,28 @@
 <?php
-class About extends view
+class Contact extends view
 {
 
   public function output()
   {
     $title = $this->model->title;
-    $data = $this->model->data;
+
     require APPROOT . '/views/inc/header.php';
-    
     $text = <<<EOT
     <div class="jumbotron jumbotron-fluid">
     <div class="container">
       <h1 class="display-4"> $title</h1>
-      <h2 class="display-4"> $data</h>
-      </div>
-      </div>
+    </div>
+  </div>
 
   <style>
-*{   
-  
-  flex-direction=row;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    width: 100%;
-    background: #eee;
-    text-align:center;
+*{
+    margin: 0;
+    padding: 0;
     font-family: "Open Sans",sans-serif;
     box-sizing: border-box;
 }
  
 body{
-    display:block;
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -40,22 +31,19 @@ body{
 }
  
 .about-section{
-    display:block;
-    background: url(../../public/images/egyeurologo.jpg) no-repeat top left;
-    background-size: 10%;
+    background: url(egyeurologo.jpg) no-repeat left;
+    background-size: 40%;
     background-color: #fdfdfd;
     overflow: hidden;
     height: 100%;
-    width:100%;
-    padding: 100px ;
+    padding: 100px 0;
 }
  
 .inner-container{
-    width: 100%;
-    height:100%;
+    width: 55%;
     float: right;
     background-color: #B0EDA9;
-    padding: 100px ;
+    padding: 150px;
 box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
  
 }
@@ -77,7 +65,7 @@ h1{
 }
  
 .contact{
-    
+    display: flex;
     justify-content: space-between;
     font-weight: 700;
     font-size: 13px;
@@ -85,7 +73,7 @@ h1{
  
 @media screen and (max-width:1200px){
     .inner-container{
-        padding: 100px;
+        padding: 80px;
     }
 }
  
@@ -101,10 +89,10 @@ h1{
  
 @media screen and (max-width:600px){
     .about-section{
-        padding: 100;
+        padding: 0;
     }
     .inner-container{
-        padding: 100px;
+        padding: 60px;
     }
 }
 span{
@@ -113,18 +101,18 @@ span{
 text-align: center;
 padding: 10px;
   width: 500px;
-  height: 100px;
 }
 span:hover{
-background-image: linear-gradient(to right top, #f85370, #f35470, #ee5570, #e8556f, #e3566f);
+background-image: linear-gradient(to right top, lightgrey, lightgrey, lightgrey, lightgrey, lightgrey);
 color: #fff;
 border-radius: 20px;
 transition: 0.5s;
  
 }
 .active{
-  background-image: linear-gradient(to right top, #f85370, #f35470, #ee5570, #e8556f, #e3566f);
-  color: #fff;
+  /*background-image: linear-gradient(to right top, black, black, black, black, black);*/
+  background-color: #000000;
+  color: #FFFFFF;
   border-radius: 20px;
  
  
@@ -134,17 +122,26 @@ transition: 0.5s;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us Page - EGYEURO</title>
+    <title>Contact Us Page - EGYEURO</title>
     <!-- <link rel="stylesheet" href="style.css"> -->
 </head>
 <body>
     <div class="about-section">
         <div class="inner-container">
-            <h1>About Us</h1>
+            <h1>Contact Us</h1>
             <p class="text">
-            In 1999 The Egyptian European was established supplying innovative nutritional and veterinary products to poultry farms. Up to today, we continue to grow and expand our business covering all the animal health industry including poultry, livestock, equine and pet animals.
-                 <h2> For more info you can contact us from here:</h2>
+                Hello 
+                if you have any questions regarding our products,how can you get any of our products, misusing anything and need help, refunding or exchanging any of our products, or anything else, you're more than welcome! 
+                <br>
+                dont hesitate to contact us through any of these options: 
+                 
+                <br>
+               <img src="phone3.PNG" height="22px" width="22px" alt="" > +2 02 26376754
+                <br>
+                 <img src="mail2.PNG" height="22px" width="22px" alt="" >  info@egyeurogroup.com
                  <br>
+                 <img src="fb7.PNG" height="22px" width="22px" alt="" >  <a href="https://web.facebook.com/EgyEuro.Official">our facebook page</a>
+                 <h2>  or you can chat with us from here:</h2>
             </p>
             <div class="contact" >
               
@@ -154,8 +151,6 @@ transition: 0.5s;
             </div>
         </div>
     </div>
-
-    
 </body>
 </html>
 EOT;
