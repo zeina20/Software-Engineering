@@ -9,9 +9,9 @@ define('DB_NAME', 'miublog');
 //echo dirname(dirname(__FILE__));
 define('APPROOT', dirname(dirname(__FILE__)));
 // URL Root
-define('URLROOT', 'http://localhost/mvc/public/');
+define('URLROOT', 'http://localhost/Software-Engineering/public/');
 // Site Name
-define('SITENAME', 'MIU Blog MVC');
+define('SITENAME', 'EGYEURO');
 
 define('APP_VERSION', '1.2');
 

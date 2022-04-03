@@ -1,6 +1,6 @@
 <?php
 class IndexModel extends model
 {
-     public $title = 'MIU SE305 Blog ' . APP_VERSION;
-     public $subtitle = 'Example of MVC PHP framework for SE305';
+     public $title = 'EgyEuro pharmaceutical company';
+     public $subtitle = 'we care about our animals health';
 }
