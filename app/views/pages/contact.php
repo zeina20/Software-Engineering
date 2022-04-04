@@ -8,42 +8,40 @@ class Contact extends view
 
     require APPROOT . '/views/inc/header.php';
     $text = <<<EOT
-    <div class="jumbotron jumbotron-fluid">
-    <div class="container">
-      <h1 class="display-4"> $title</h1>
-    </div>
-  </div>
+   
 
   <style>
-*{
-    margin: 0;
-    padding: 0;
-    font-family: "Open Sans",sans-serif;
-    box-sizing: border-box;
-}
- 
-body{
-    min-height: 100vh;
-    display: flex;
+*{   
+  
+    flex-direction=row;
+      justify-content: center;
+      align-items: center;
+      text-align:center;
+      font-family: "Open Sans",sans-serif;
+      box-sizing: border-box;
+  }
+  body{
+    display:block;
     align-items: center;
     justify-content: center;
     background-color: #f1f1f1;
 }
- 
 .about-section{
-    background: url(egyeurologo.jpg) no-repeat left;
-    background-size: 40%;
+    display:block;
+    background: url(../../public/images/egyeurologo.jpg) no-repeat top left;
+    background-size: 10%;
     background-color: #fdfdfd;
     overflow: hidden;
     height: 100%;
-    padding: 100px 0;
+    width:100%;
+    padding: 100px ;
 }
- 
 .inner-container{
-    width: 55%;
+    width: 100%;
+    height:100%;
     float: right;
     background-color: #B0EDA9;
-    padding: 150px;
+    padding: 100px ;
 box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
  
 }
@@ -54,7 +52,7 @@ box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2
 }
  
 .text{
-    font-size: 13px;
+    font-size: 20px;
     color: #545454;
     line-height: 30px;
     text-align: justify;
@@ -65,7 +63,7 @@ h1{
 }
  
 .contact{
-    display: flex;
+    
     justify-content: space-between;
     font-weight: 700;
     font-size: 13px;
@@ -73,7 +71,7 @@ h1{
  
 @media screen and (max-width:1200px){
     .inner-container{
-        padding: 80px;
+        padding: 100px;
     }
 }
  
@@ -89,10 +87,10 @@ h1{
  
 @media screen and (max-width:600px){
     .about-section{
-        padding: 0;
+        padding: 100;
     }
     .inner-container{
-        padding: 60px;
+        padding: 100px;
     }
 }
 span{
@@ -101,6 +99,7 @@ span{
 text-align: center;
 padding: 10px;
   width: 500px;
+  height: 100px;
 }
 span:hover{
 background-image: linear-gradient(to right top, lightgrey, lightgrey, lightgrey, lightgrey, lightgrey);
@@ -109,15 +108,22 @@ border-radius: 20px;
 transition: 0.5s;
  
 }
-.active{
-  /*background-image: linear-gradient(to right top, black, black, black, black, black);*/
-  background-color: #000000;
-  color: #FFFFFF;
+.Active{
+  background-image: linear-gradient(to right top, black, black, black, black, black);
+  color: #fff;
   border-radius: 20px;
  
  
 }
+ 
 </style>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>About Us Page - EGYEURO</title>
+        <!-- <link rel="stylesheet" href="style.css"> -->
+    </head>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -136,17 +142,17 @@ transition: 0.5s;
                 dont hesitate to contact us through any of these options: 
                  
                 <br>
-               <img src="phone3.PNG" height="22px" width="22px" alt="" > +2 02 26376754
+               <img src="http://localhost/Software-Engineering/public/images/phone3.PNG" height="22px" width="22px" alt="" > +2 02 26376754
                 <br>
-                 <img src="mail2.PNG" height="22px" width="22px" alt="" >  info@egyeurogroup.com
+                 <img src="http://localhost/Software-Engineering/public/images/mail2.PNG" height="22px" width="22px" alt="" >  info@egyeurogroup.com
                  <br>
-                 <img src="fb7.PNG" height="22px" width="22px" alt="" >  <a href="https://web.facebook.com/EgyEuro.Official">our facebook page</a>
+                 <img src="http://localhost/Software-Engineering/public/images/fb7.PNG" height="22px" width="22px" alt="" >  <a href="https://web.facebook.com/EgyEuro.Official">our facebook page</a>
                  <h2>  or you can chat with us from here:</h2>
             </p>
             <div class="contact" >
               
 
-                <span class="active" >contact us </span>
+                <span class="Active" >Chat </span>
                
             </div>
         </div>

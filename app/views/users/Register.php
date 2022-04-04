@@ -151,7 +151,8 @@ img {
             <div class="card d-flex mx-auto my-5">
                 <div class="row">
                     <div class="col-md-5 col-sm-12 col-xs-12 c1 p-5">
-                        <div class="row mb-5 m-3"> <!-- <img src="https://i.imgur.com/pFfTOwy.jpg" width="70vw" height="55vh" alt=""> --> </div> <img src="egyeurologo.jpg" width="220vw" height="210vh" class="mx-auto d-flex" alt="LOGO">
+                        <div class="row mb-5 m-3"> <!-- <img src="https://i.imgur.com/pFfTOwy.jpg" width="70vw" height="55vh" alt=""> --> </div>
+                         <img src="C:/xampp/htdocs/Software-Engineering/public/images/egyeurologo.jpg" width="220vw" height="210vh" class="mx-auto d-flex" alt="LOGO">
                         <div class="row justify-content-center">
                             <div class="w-75 mx-md-5 mx-1 mx-sm-2 mb-5 mt-4 px-sm-5 px-md-2 px-xl-1 px-2">
                                 <h1 class="wlcm">Welcome to EgyEuro Company</h1> <span class="sp1"> <span class="px-3 bg-danger rounded-pill"></span> <span class="ml-2 px-1 rounded-circle"></span> <span class="ml-2 px-1 rounded-circle"></span> </span>
@@ -167,8 +168,10 @@ img {
                             <h1 class="wlcm">Hi Admin</h1>
                             <div class="d-flex"> <img src="https://i.imgur.com/oGcceAH.jpg" height="22px" width="22px" alt="" class="mr-3 mt-2">
                                 <h3 class="font-weight-bold">Sign Up</h3>
-                            </div> <input type="text" name="userid" placeholder="Email"> <input type="password" name="passw" placeholder="Password"> 
-                            <input type="password" name="confirmpassw" placeholder="Confirm Password"><button class="text-white text-weight-bold bt">Continue</button>
+                            </div> 
+                            <input type="text" name="name" placeholder="Name">
+                            <input type="text" name="adminid" placeholder="Email"> <input type="password" name="password" placeholder="Password"> 
+                            <input type="password" name="confirm_password" placeholder="confirm password"><button class="text-white text-weight-bold bt">Continue</button>
                             
                         </form>
                     </div>
