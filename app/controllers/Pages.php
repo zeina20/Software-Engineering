@@ -24,4 +24,22 @@ class Pages extends Controller
         $contactView->output();
     }
 
+    public function products()
+    {
+        $viewPath = VIEWS_PATH . 'pages/products.php';
+        require_once $viewPath;
+        $productView = new Products($this->getModel(), $this);
+        $productView->output();
+    }
+    
+    public function admin()
+    {
+        $viewPath = VIEWS_PATH . 'pages/admin.php';
+        require_once $viewPath;
+        $adminView = new Admin($this->getModel(), $this);
+        $adminView->output();
+    }
+
+
+
 }
