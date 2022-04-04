@@ -39,7 +39,13 @@ class Pages extends Controller
         $adminView = new Admin($this->getModel(), $this);
         $adminView->output();
     }
-
+    public function Cart()
+    {
+        $viewPath = VIEWS_PATH . 'pages/Cart.php';
+        require_once $viewPath;
+        $CartView = new Cart($this->getModel(), $this);
+        $CartView->output();
+    }
 
 
 }
