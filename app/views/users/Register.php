@@ -135,6 +135,26 @@ label {
     &:hover {background: lighten(#111, 13%);}
 }
 </style>
+
+
+<script >
+function loadDoc() {
+    
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("demo").innerHTML =
+      this.responseText;    
+    }
+  };
+  
+  xhttp.open("GET", "http://localhost/Software-Engineering/public/ajax/ajax_info.txt", true);
+  xhttp.send();
+
+}
+</script>
+
+
 <div class="signup__container">
   <div class="container__child signup__thumbnail">
     <div class="thumbnail__content text-center">     
@@ -172,7 +192,13 @@ label {
       <div class="m-t-lg">
         <ul class="list-inline">
           <li>
-            <input class="btn btn--form" type="submit" value="Register" />
+          <div id="demo">
+          <div class="btn btn--form">             
+
+<button type="button" onclick="loadDoc()"class="btnContact">register</button>
+</div>
+                        </div>
+                        </div>
           </li> 
         </ul>
       </div>

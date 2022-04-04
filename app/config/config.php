@@ -17,3 +17,4 @@ define('APP_VERSION', '1.2');
 
 //public pages path
 define('VIEWS_PATH', '../app/views/');
+define('AJAXROOT', 'http://localhost/Software-Engineering/public/ajax/ajax_info.txt');
