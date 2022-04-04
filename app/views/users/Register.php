@@ -7,15 +7,7 @@ class Register extends view
 
     require APPROOT . '/views/inc/header.php';
     $text = <<<EOT
-    <div class="jumbotron jumbotron-fluid">
-    <div class="container">
-      <h1 class="display-4"> $title</h1>
-    </div>
-  </div>
-
-  </div>
-  </div>
-  </div>
+ 
 EOT;
     echo $text;
     $this->printForm();
@@ -41,144 +33,151 @@ EOT;
     $this->printConfirmPassword();
     $text = <<<EOT
     <style>
-    @import url( 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css');
-     @import url('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js');
-     @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
-     @import url('https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js');
-html,
-body {
-    height: 100%
-}
 
 body {
-    background-color: lightgrey;
-    display: grid;
-    place-items: center
+  font: 100% / 1.414 "Open Sans", "Roboto", arial, sans-serif;
+  background: #e9e9e9;
 }
-
-.card {
-    padding: 0px 15px;
-    border-radius: 20px
+a,
+[type="submit"] {transition: all .25s ease-in;}
+.signup__container {
+  position: absolute;
+  top: 50%;
+  right: 50;
+  left: 50;
+  margin-right: 50;
+  margin-left: 50;
+  transform: translateY(-50%);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: remy(800px);
+  height: remy(480px);
+  border-radius: remy(3px);
+  box-shadow: 0px remy(3px) remy(7px) rgba(0,0,0,.25);
 }
-
-.c1 {
-    background-color: #B0EDA9;
-    border-radius: 20px
+.signup__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #B0EDA9;
 }
-
-a {
-    margin: 0px;
-    font-size: 13px;
-    border-radius: 7px;
-    text-decoration: none;
-    color: black
+.container__child {
+  width: 50%;
+  height: 100%;
+  color: #fff;
 }
-
-a:hover {
-    color: #e0726c;
-    background-color: lightgrey;
+.signup__thumbnail {
+  position: relative;
+  padding: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  background: url(http://ultraimg.com/images/spectre-login.jpg);
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
 }
-
-.nav-link {
-    padding: 1rem 1.4rem;
-    margin: 0rem 0.7rem
+.thumbnail__content,
+.thumbnail__links {
+  position: relative;
+  z-index: 2;  
 }
-
-.ac {
-    font-weight: bold;
-    color: #e0726c;
-    font-size: 12px
+.thumbnail__content {align-self: center;}
+h1,
+h2 {
+  font-weight: 700;
+  color:black;  
 }
-
-input,
-button {
-    width: 96%;
-    background-color: lightgrey;
-    border-radius: 20px;
-    padding: 8px 17px;
-    font-size: 13px;
-    border: 1px solid #B0EDA9;
-    color: #dccece
+.heading--primary {font-size: 1.999rem;}
+.heading--secondary {font-size: 1.414rem;}
+.thumbnail__links {
+  align-self: flex-end;
+  width: 100%;
 }
-
-input: {
-    text-decoration: none
+.thumbnail__links a {
+  font-size: 1rem;
+  color: #fff;
+  &:focus,
+  &:hover {color: rgba(255,255,255,.5);}
 }
-
-.bt {
-    background-color: #000000;
-    border: 1px solid rgb(300, 200, 200)
+.signup__form {
+  padding: 2.5rem;
+  background: #fafafa;
 }
-
-form {
-    margin-top: 70px
+label {
+  font-size: .85rem;
+  text-transform: uppercase;
+  color: black;
 }
-
-form>* {
-    margin: 10px 0px
+.form-control {
+  background-color: transparent;
+  border-top: 0;
+  border-right: 0;
+  border-left: 0;
+  border-radius: 0;
+  &:focus {border-color: black;}
 }
-
-#forgot {
-    margin: 0px -60px
+[type="text"] {color: #111;}
+[type="password"] {color: #111;}
+.btn--form {
+  padding: 10px;
+  border-radius:20px;
+  font-size: .80rem;
+  font-weight: 600;
+  color: white;
+  background: black;
+  border-radius: remy(35px);
+    &:focus,
+    &:hover {background: lighten(#111, 13%);}
 }
-
-#register {
-    text-align: center
-}
-
-img {
-    max-width: 200px;  
-    background-color: antiquewhite
-}
-
-.wlcm {
-    font-size: 30px
-}
-
-.sp1 {
-    font-size: 5px
-
-}
-
-.sp1>span {
-    background-color: lightgrey;
-}
-
 </style>
-<div class="container-fluid">
-    <div class="row justify-content-center">
-        <div class="col-12 col-sm-10 col-md-12 col-lg-11 col-xl-10">
-            <div class="card d-flex mx-auto my-5">
-                <div class="row">
-                    <div class="col-md-5 col-sm-12 col-xs-12 c1 p-5">
-                        <div class="row mb-5 m-3"> <!-- <img src="https://i.imgur.com/pFfTOwy.jpg" width="70vw" height="55vh" alt=""> --> </div>
-                         <img src="C:/xampp/htdocs/Software-Engineering/public/images/egyeurologo.jpg" width="220vw" height="210vh" class="mx-auto d-flex" alt="LOGO">
-                        <div class="row justify-content-center">
-                            <div class="w-75 mx-md-5 mx-1 mx-sm-2 mb-5 mt-4 px-sm-5 px-md-2 px-xl-1 px-2">
-                                <h1 class="wlcm">Welcome to EgyEuro Company</h1> <span class="sp1"> <span class="px-3 bg-danger rounded-pill"></span> <span class="ml-2 px-1 rounded-circle"></span> <span class="ml-2 px-1 rounded-circle"></span> </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-7 col-sm-12 col-xs-12 c2 px-5 pt-5">
-                        <div class="row">
-                            <!-- <nav class="nav font-weight-500 mb-1 mb-sm-2 mb-lg-5 px-sm-2 px-lg-5"> <a class="nav-link" href="#">Careers</a> <a class="nav-link ac" href="#">Students</a> <a class="nav-link" href="#">Admission</a> </nav> -->
-                        <!-- </div> -->
+<div class="signup__container">
+  <div class="container__child signup__thumbnail">
+    <div class="thumbnail__content text-center">     
+      <h1 class="heading--primary"><center>Sign Up Here!</center></h1>
 
-                        <form onsubmit="event.preventDefault()" name="myform" onsubmit="" class="px-5 pb-5">
-                            <h1 class="wlcm">Hi Admin</h1>
-                            <div class="d-flex"> <img src="https://i.imgur.com/oGcceAH.jpg" height="22px" width="22px" alt="" class="mr-3 mt-2">
-                                <h3 class="font-weight-bold">Sign Up</h3>
-                            </div> 
-                            <input type="text" name="name" placeholder="Name">
-                            <input type="text" name="adminid" placeholder="Email"> <input type="password" name="password" placeholder="Password"> 
-                            <input type="password" name="confirm_password" placeholder="confirm password"><button class="text-white text-weight-bold bt">Continue</button>
-                            
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
+    
+    <div class="thumbnail__links">
+    
+      <center>
+      <img class="0" src="http://localhost/Software-Engineering/public/images/egyeurologo.jpg" height="200px" width="200px" alt="Image">
+      </center>
+    </div>
+    <div class="signup__overlay"></div>
+    
+  </div>
+  <div class="container__child signup__form">
+    <form action="#">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input class="form-control" type="text" name="username" id="username" required />
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input class="form-control" type="text" name="email" id="email"  required />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input class="form-control" type="password" name="password" id="password"  required />
+      </div>
+      <div class="form-group">
+        <label for="confirmpassword">confirm Password</label>
+        <input class="form-control" type="password" name="confirmpassword" id="confirmpassword"  required />
+      </div>
+      <div class="m-t-lg">
+        <ul class="list-inline">
+          <li>
+            <input class="btn btn--form" type="submit" value="Register" />
+          </li> 
+        </ul>
+      </div>
+    </form>  
+  </div>
 </div>
 EOT;
     echo $text;
