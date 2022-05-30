@@ -73,26 +73,45 @@ class Products extends view
         </head>
     <body>
 
+        <table>
+        <?php
+        $products = $this->model->getAllProducts();
+        $total = 0;
+        foreach($this->controller->productsQuantity as $key => $value){
+            $product = $this->controller->getProductById($key, $products);
+            $total += $value*$product->price;
+        ?>
+                <tr>
+                    <td>
+                        <?php echo $product->productname; ?>
+                    </td>
+                    <td>
+                        <?php echo $product->price; ?>
+                    </td>
+                    <td>
+                        <?php echo $value; ?>
+                    </td>
+                </tr>
+        <?php
+        }
+        ?>
+            <tr><td>Total</td><td>$<?php echo $total; ?></td><td><button>Checkout</button></td></tr>
+        </table>
     <h2 style="text-align:center">Products</h2>
-
-
-    <?php
-    $products=$this->model->getAllProducts();
-
-    ?>
     <div id="product-grid" style="display: flex;flex-wrap: wrap;">
 
         <?php
         foreach ($products as $product){?>
 
             <div class="product-item cards" width="200px">
-                <form method="post" action="Cart">
+                <form method="post" action="Products">
                 <div><strong><?php echo $product->productname; ?></strong></div>
                 <div class="product-image"><img src="data:image/jpeg;base64,<?php echo base64_encode($product->picture); ?>" ></div>
                 <div class="product-price"><?php echo $product->description; ?></div>
                 <div class="product-price">Qty: <?php echo $product->quantity; ?> Price: $<?php echo $product->price; ?></div>
                 <div>
-                    <input type="hidden" name="productid" value="<?php echo $product->productid ?>" />
+                    <input type="hidden" name="product_id" value="<?php echo $product->product_id ?>" />
+                    <input type="hidden" name="ProductsQty" value='<?php echo json_encode($this->controller->productsQuantity); ?>' />
                     <input type="number" name="quantity" value="1" size="2" />
                     <input type="submit" value="Add to cart" class="btnAddAction" />
                 </div>

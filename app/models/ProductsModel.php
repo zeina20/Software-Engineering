@@ -24,9 +24,7 @@ class ProductsModel extends model
     {
         $this->dbh->query('select * from products');
 
-        $prodRecord = $this->dbh->resultSet();
-
-        return $prodRecord;
+        return $this->dbh->resultSet();
     }
     /*
         public $id;

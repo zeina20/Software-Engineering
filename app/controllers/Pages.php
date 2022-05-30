@@ -2,6 +2,12 @@
 class Pages extends Controller
 {
 
+    public $productsQuantity;
+
+    function __construct($model){
+        $this->productsQuantity=array();
+        parent::__construct($model);
+    }
     public function index()
     {
         $viewPath = VIEWS_PATH . 'pages/Index.php';
@@ -26,10 +32,17 @@ class Pages extends Controller
 
     public function products()
     {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $this->productsQuantity = json_decode($_POST['ProductsQty'],true);
+            $this->addProductToCart($_POST['product_id'], $_POST['quantity']);
+
+        }
+
         $viewPath = VIEWS_PATH . 'pages/products.php';
         require_once $viewPath;
         $productView = new Products($this->getModel(), $this);
         $productView->output();
+
 
         /*$this->db = new Database;
         $sql = "SELECT * FROM products";
@@ -49,6 +62,30 @@ class Pages extends Controller
         $this->view("Products",$data);*/
     }
 
+    function getProductById( $productID , $products) {
+        foreach ($products as $product){
+            if($product->product_id == $productID)
+                return $product;
+        }
+    }
+
+    function addProductToCart($productID,$q){
+        if (array_key_exists((string)$productID,$this->productsQuantity))
+            $this->productsQuantity[(string)$productID]+= $q;
+        else
+            $this->productsQuantity[(string)$productID]= $q;
+    }
+
+    function removeProductFromCart($productID){
+        unset($this->productsQuantity[(string)$productID]);
+    }
+
+    function emptyCart(){
+        unset($this->productsQuantity);
+        $this->productsQuantity=array();
+    }
+
+
     public function admin()
     {
         $viewPath = VIEWS_PATH . 'pages/admin.php';
@@ -60,12 +97,8 @@ class Pages extends Controller
     {
         $registerModel = $this->getModel();
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            print_r($_POST);
-            $registerModel->setproductname(trim($_POST['productname']));
-            $registerModel->setdescription(trim($_POST['description']));
-            $registerModel->setprice(trim($_POST['price']));
-            $registerModel->Add();
-            redirect('pages/products');
+            $this->addProductToCart($_POST['product_id'], $_POST['quantity']);
+            $this->products();
         }
         else {
             $viewPath = VIEWS_PATH . 'pages/Cart.php';
@@ -99,6 +132,7 @@ class Pages extends Controller
         $AddProductsView = new AddProducts($this->getModel(), $this);
         $AddProductsView->output();
     }
+
 
 
 }
