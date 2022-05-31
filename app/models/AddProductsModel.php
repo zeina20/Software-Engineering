@@ -14,11 +14,12 @@ class AddProductsModel extends ProductsModel
 
     public function Add()
     {
-        $this->dbh->query("INSERT INTO products (`product name`, `product id`, `quantity`,`order id`) VALUES(:productname, :productid, :quantity, :orderid)");
-        $this->dbh->bind(':product name', $this->productname);
-        $this->dbh->bind(':product id', $this->productid);
-        $this->dbh->bind(':quantity', $this->quantity);
-        $this->dbh->bind(':order id', $this->orderid);
+        $this->dbh->query("INSERT INTO products (`product_id`, `productname`,`picture, `description`,`quantity`,`price`) VALUES(:product_id, :productname, :picture, :description, :quantity, :price)");
+        $this->dbh->bind(':product_id', $this->product_id);
+        $this->dbh->bind(':productname', $this->productname);
+        $this->dbh->bind(':picture', $this->picture);
+        $this->dbh->bind(':description', $this->description);
+        $this->dbh->bind(':quantity', $this->price);
         return $this->dbh->execute();
     }
 }

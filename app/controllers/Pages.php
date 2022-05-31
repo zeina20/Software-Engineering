@@ -2,12 +2,6 @@
 class Pages extends Controller
 {
 
-    public $productsQuantity;
-
-    function __construct($model){
-        $this->productsQuantity=array();
-        parent::__construct($model);
-    }
     public function index()
     {
         $viewPath = VIEWS_PATH . 'pages/Index.php';
@@ -32,17 +26,10 @@ class Pages extends Controller
 
     public function products()
     {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $this->productsQuantity = json_decode($_POST['ProductsQty'],true);
-            $this->addProductToCart($_POST['product_id'], $_POST['quantity']);
-
-        }
-
         $viewPath = VIEWS_PATH . 'pages/products.php';
         require_once $viewPath;
         $productView = new Products($this->getModel(), $this);
         $productView->output();
-
 
         /*$this->db = new Database;
         $sql = "SELECT * FROM products";
@@ -62,30 +49,6 @@ class Pages extends Controller
         $this->view("Products",$data);*/
     }
 
-    function getProductById( $productID , $products) {
-        foreach ($products as $product){
-            if($product->product_id == $productID)
-                return $product;
-        }
-    }
-
-    function addProductToCart($productID,$q){
-        if (array_key_exists((string)$productID,$this->productsQuantity))
-            $this->productsQuantity[(string)$productID]+= $q;
-        else
-            $this->productsQuantity[(string)$productID]= $q;
-    }
-
-    function removeProductFromCart($productID){
-        unset($this->productsQuantity[(string)$productID]);
-    }
-
-    function emptyCart(){
-        unset($this->productsQuantity);
-        $this->productsQuantity=array();
-    }
-
-
     public function admin()
     {
         $viewPath = VIEWS_PATH . 'pages/admin.php';
@@ -97,8 +60,12 @@ class Pages extends Controller
     {
         $registerModel = $this->getModel();
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $this->addProductToCart($_POST['product_id'], $_POST['quantity']);
-            $this->products();
+            print_r($_POST);
+            $registerModel->setproductname(trim($_POST['productname']));
+            $registerModel->setdescription(trim($_POST['description']));
+            $registerModel->setprice(trim($_POST['price']));
+            $registerModel->Add();
+            redirect('pages/products');
         }
         else {
             $viewPath = VIEWS_PATH . 'pages/Cart.php';
@@ -117,13 +84,22 @@ class Pages extends Controller
     }
     public function AddProducts()
     {
-        $registerModel = $this->getModel();
+        $addProductsModel = $this->getModel();
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            
+            $picture=$_FILES['picture']['name'];
+            $picture_tmp=$_FILES['picture']['tmp_name'];
 
-            $registerModel->setproductname(trim($_POST['productname']));
-            $registerModel->setdescription(trim($_POST['description']));
-            $registerModel->setprice(trim($_POST['price']));
-            $registerModel->Add();
+            move_uploaded_file($picture_tmp,"C:\xampp\htdocs\Software-Engineering\public\images".$picture);
+
+
+            $addProductsModel->setProductName(trim($_POST['productname']));
+            $addProductsModel->setProductID(trim($_POST['product_id']));
+            $addProductsModel->setDescription(trim($_POST['description']));
+            $addProductsModel->setQuantity(trim($_POST['quantity']));
+            $addProductsModel->setPrice(trim($_POST['price']));
+            $addProductsModel->setPicture($_FILES['picture']['name']);
+            $addProductsModel->Add();
             redirect('pages/admin');
 
         }
@@ -133,6 +109,19 @@ class Pages extends Controller
         $AddProductsView->output();
     }
 
+    public function DeleteProducts($productid){
+        $viewPath = VIEWS_PATH . 'pages/DeleteProducts.php';
+        require_once $viewPath;
+        $DeleteProductsView = new DeleteProducts($this->getModel(), $this);
+        $DeleteProductsView->output();
+    }
+
+    public function EditProducts($productid){
+        $viewPath = VIEWS_PATH . 'pages/EditProducts.php';
+        require_once $viewPath;
+        $EditProductsView = new EditProducts($this->getModel(), $this);
+        $EditProductsView->output();
+    }
 
 
 }
