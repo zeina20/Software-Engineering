@@ -285,9 +285,7 @@ a.qty:hover {
       
       <div class="layout-inline row th">
         <div class="col col-pro">Product</div>
-        <div class="col col-price align-center "> 
-          Price
-        </div>
+        <div class="col col-price align-center "> Price </div>
         <div class="col col-qty align-center">QTY</div>
         <?php
         $products = $this->model->getAllProducts();
@@ -334,7 +332,8 @@ a.qty:hover {
        </div>         
   </div>
     
-    <a href="#" class="btn btn-update">Checkout</a>
+    <a href="http://localhost/Software-Engineering/public/pages/cart" class="btn btn-update">Checkout</a>
+
   
 </div>
   
