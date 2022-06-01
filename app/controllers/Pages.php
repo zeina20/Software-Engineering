@@ -100,8 +100,16 @@ class Pages extends Controller
                 $buyer = $this->loadModel('BuyerModel');
                 $buyerId = $buyer->insert($_POST['name'], $_POST['email'], $_POST['number'], $_POST['address']);
 
+                $productModel = $this->loadModel('ProductsModel');
+                $products = $productModel->getAllProducts();
+                $total = 0;
+                foreach ($_SESSION['productsQuantity'] as $key => $value) {
+                    $product = $this->getProductById($key, $products);
+                    $total += $value * $product->price;
+                }
+
                 $order = $this->loadModel('OrderModel');
-                $orderId = $order->insert($buyerId, 0);
+                $orderId = $order->insert($buyerId, $total);
 
                 $orderProduct = $this->loadModel('OrderProductsModel');
                 foreach ($_SESSION['productsQuantity'] as $key => $value) {
