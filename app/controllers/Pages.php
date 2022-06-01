@@ -194,12 +194,16 @@ class Pages extends Controller
             $editModel->setDescription(trim($_POST['description']));
             $editModel->setQuantity(trim($_POST['quantity']));
             $editModel->setPrice(trim($_POST['price']));
-            if(ISSET($_FILES) && count($_FILES) > 0){
+            
+            if($_FILES['picture']['size'] > 0) {
                 $picture=$_FILES['picture']['name'];
                 $picture_tmp=$_FILES['picture']['tmp_name'];
                 unlink(".\\products\\".$productId."-".$oldProduct->picture);
                 move_uploaded_file($picture_tmp,".\\products\\".$productId."-".$picture);
                 $editModel->setPicture($_FILES['picture']['name']);
+            }
+            else {
+                $editModel->setPicture($oldProduct->picture);
             }
             
             $editModel->Edit($productId);
