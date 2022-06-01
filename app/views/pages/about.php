@@ -134,7 +134,7 @@ span{
                 </p>
                 <div class="about" >
                 
-                     <span class="Active"  > <a href="http://localhost/Software-Engineering/public/pages/contact">Contact Us</a> </span>
+                     <span class="Active"  > <a href="http://localhost/Software-Engineering/public/pages/c">Contact Us</a> </span>
                      
                    </form>
                 </div>
