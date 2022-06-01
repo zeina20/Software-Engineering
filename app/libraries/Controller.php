@@ -10,16 +10,20 @@ abstract class Controller
 
     public function __construct($model)
     {
-        $modelPath = Util\pathBuilder('models', $model);
-        if (file_exists($modelPath)) {
-            require_once $modelPath;
-            $this->model = new $model();
-        } else {
-            die('Model does not exist');
-        }
+        $this->model = $this->loadModel($model);
     }
     public function getModel()
     {
         return $this->model;
+    }
+
+    public function loadModel($model) {
+        $modelPath = Util\pathBuilder('models', $model);
+        if (file_exists($modelPath)) {
+            require_once $modelPath;
+            return new $model();
+        } else {
+            die('Model does not exist');
+        }
     }
 }

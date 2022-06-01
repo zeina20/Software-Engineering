@@ -321,10 +321,8 @@ class Products extends view
 
                         </div>
                         <div class="col">
-                            <form method="post" action="http://localhost/Software-Engineering/public/pages/cart?action=checkout">
+                            <form method="post" action="http://localhost/Software-Engineering/public/pages/cart?action=goto-checkout">
                                 <input type="hidden" name="CartTotal" value="<?php echo $total; ?>" />
-                                <input type="hidden" name="CartProductsQty"
-                                       value='<?php echo json_encode($this->controller->productsQuantity); ?>' />
                                 <button class="btn btn-update">Checkout</button>
                             </form>
                         </div>

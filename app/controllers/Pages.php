@@ -5,7 +5,7 @@ class Pages extends Controller
     public $productsQuantity;
 
     function __construct($model){
-        $this->productsQuantity=array();
+        $this->productsQuantity = $_SESSION['productsQuantity'] ?? array();
         parent::__construct($model);
     }
 
@@ -55,10 +55,14 @@ class Pages extends Controller
     }
 
     function addProductToCart($productID,$q){
+        $this->productsQuantity = $_SESSION['productsQuantity'] ?? array();
+
         if (array_key_exists((string)$productID,$this->productsQuantity))
             $this->productsQuantity[(string)$productID]+= $q;
         else
             $this->productsQuantity[(string)$productID]= $q;
+
+        $_SESSION['productsQuantity'] = $this->productsQuantity;
     }
 
     function removeProductFromCart($productID){
@@ -85,13 +89,27 @@ class Pages extends Controller
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $queryString = array();
             parse_str($_SERVER['QUERY_STRING'], $queryString);
-            if($queryString['action'] == 'checkout'){
-                $this->productsQuantity = json_decode($_POST['CartProductsQty'],true);
+            if($queryString['action'] == 'goto-checkout'){
                 $this->total = $_POST['CartTotal'];
                 $viewPath = VIEWS_PATH . 'pages/Cart.php';
                 require_once $viewPath;
                 $CartView = new Cart($this->getModel(), $this);
                 $CartView->output();
+            }
+            else if($queryString['action'] == 'checkout') {
+                $buyer = $this->loadModel('BuyerModel');
+                $buyerId = $buyer->insert($_POST['name'], $_POST['email'], $_POST['number'], $_POST['address']);
+
+                $order = $this->loadModel('OrderModel');
+                $orderId = $order->insert($buyerId, 0);
+
+                $orderProduct = $this->loadModel('OrderProductsModel');
+                foreach ($_SESSION['productsQuantity'] as $key => $value) {
+                    $orderProduct->insert($orderId, $key, $value);
+                }
+
+                echo 'Done your order ID is '.$orderId;
+                session_destroy();
             }
             else {
                 $this->addProductToCart($_POST['product_id'], $_POST['quantity']);
