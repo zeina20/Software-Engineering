@@ -6,7 +6,7 @@ class Pages extends Controller
     public $productsQuantity;
 
     function __construct($model){
-        $this->productsQuantity=array();
+        $this->productsQuantity = $_SESSION['productsQuantity'] ?? array();
         parent::__construct($model);
     }
 
@@ -36,8 +36,15 @@ class Pages extends Controller
      public function products()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $this->productsQuantity = json_decode($_POST['ProductsQty'],true);
-            $this->addProductToCart($_POST['product_id'], $_POST['quantity']);
+            $queryString = array();
+            parse_str($_SERVER['QUERY_STRING'], $queryString);
+            if(ISSET($queryString['action']) && $queryString['action'] == 'removeFromCart') {
+                $this->removeProductFromCart($_POST['product_id']);
+            }
+            else {
+                $this->productsQuantity = json_decode($_POST['ProductsQty'], true);
+                $this->addProductToCart($_POST['product_id'], $_POST['quantity']);
+            }
 
         }
 
@@ -56,14 +63,19 @@ class Pages extends Controller
     }
 
     function addProductToCart($productID,$q){
+        $this->productsQuantity = $_SESSION['productsQuantity'] ?? array();
+
         if (array_key_exists((string)$productID,$this->productsQuantity))
             $this->productsQuantity[(string)$productID]+= $q;
         else
             $this->productsQuantity[(string)$productID]= $q;
+
+        $_SESSION['productsQuantity'] = $this->productsQuantity;
     }
 
     function removeProductFromCart($productID){
         unset($this->productsQuantity[(string)$productID]);
+        $_SESSION['productsQuantity'] = $this->productsQuantity;
     }
 
     function emptyCart(){
@@ -79,18 +91,54 @@ class Pages extends Controller
         $adminView = new Admin($this->getModel(), $this);
         $adminView->output();
     }
+
     public function Cart()
     {
         $registerModel = $this->getModel();
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $this->addProductToCart($_POST['product_id'], $_POST['quantity']);
-            $this->products();
+            $queryString = array();
+            parse_str($_SERVER['QUERY_STRING'], $queryString);
+            if($queryString['action'] == 'goto-checkout'){
+                $this->total = $_POST['CartTotal'];
+                $viewPath = VIEWS_PATH . 'pages/Cart.php';
+                require_once $viewPath;
+                $CartView = new Cart($this->getModel(), $this);
+                $CartView->output();
+            }
+            else if($queryString['action'] == 'checkout') {
+                $buyer = $this->loadModel('BuyerModel');
+                $buyerId = $buyer->insert($_POST['name'], $_POST['email'], $_POST['number'], $_POST['address']);
+
+                $productModel = $this->loadModel('ProductsModel');
+                $products = $productModel->getAllProducts();
+                $total = 0;
+                foreach ($_SESSION['productsQuantity'] as $key => $value) {
+                    $product = $this->getProductById($key, $products);
+                    $total += $value * $product->price;
+                }
+
+                $order = $this->loadModel('OrderModel');
+                $orderId = $order->insert($buyerId, $total);
+
+                $orderProduct = $this->loadModel('OrderProductsModel');
+                foreach ($_SESSION['productsQuantity'] as $key => $value) {
+                    $orderProduct->insert($orderId, $key, $value);
+                }
+
+                session_destroy();
+                $viewPath = VIEWS_PATH . 'pages/OrderSuccess.php';
+                require_once $viewPath;
+                $OrderSuccessView = new OrderSuccess($this->getModel(), $this);
+                $OrderSuccessView->orderId = $orderId;
+                $OrderSuccessView->output();
+            }
+            else {
+                $this->addProductToCart($_POST['product_id'], $_POST['quantity']);
+                $this->products();
+            }
         }
         else {
-            $viewPath = VIEWS_PATH . 'pages/Cart.php';
-            require_once $viewPath;
-            $CartView = new Cart($this->getModel(), $this);
-            $CartView->output();
+            echo 'go add something first!';
         }
     }
 
