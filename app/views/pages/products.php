@@ -74,7 +74,7 @@ class Products extends view
 
             .container {
                 width: 95%;
-                margin: 40px auto;
+                margin: 10px auto;
                 overflow: hidden;
                 position: relative;
 
@@ -93,7 +93,7 @@ class Products extends view
             }
 
             .cart {
-                margin: 2.5em;
+                margin: 1em;
                 overflow: hidden;
             }
 
@@ -140,12 +140,14 @@ class Products extends view
             }
 
             .col {
-                padding: 1em;
+                padding: 0.5em;
                 width: 12%;
             }
 
             .col-pro {
                 width: 44%;
+                font-size: 1.2em;
+                font-weight: 700;
             }
 
             .col-pro > * {
@@ -158,7 +160,7 @@ class Products extends view
             }
 
             .col-numeric p {
-                font: bold 1.8em helvetica;
+                font: bold 1.2em helvetica;
             }
 
             .col-total p {
@@ -213,7 +215,7 @@ class Products extends view
             }
 
             .btn {
-                padding: 10px 30px;
+                padding: 5px 10px;
                 border-radius: 0.3em;
                 font-size: 1.4em;
                 font-weight: bold;
@@ -278,8 +280,9 @@ class Products extends view
 
             <div class="layout-inline row th">
                 <div class="col col-pro">Product</div>
-                <div class="col col-price align-center "> Price</div>
                 <div class="col col-qty align-center">QTY</div>
+                <div class="col col-price align-center "> Price</div>
+                <div class="col col-price align-center "> Action</div>
                 <?php
                 $products = $this->model->getAllProducts();
                 $total = 0;
@@ -293,16 +296,30 @@ class Products extends view
 
                 <div class="col col-pro layout-inline">
 
-                    <p><?php echo $product->productname; ?></p>
+                    <p class="mb-0"><?php echo $product->productname; ?></p>
+                </div>
+
+                <div class="col col-qty col-numeric layout-inline">
+                    <p><?php echo $value; ?></p>
                 </div>
 
                 <div class="col col-price col-numeric align-center ">
                     <p><?php echo $product->price; ?></p>
                 </div>
 
-                <div class="col col-qty layout-inline">
-                    <p><?php echo $value; ?></p>
+                <div class="col col-price col-numeric align-center ">
+
+                    <form method="post" action="Products?action=removeFromCart">
+                        <input type="hidden" name="product_id" value="<?php echo $product->product_id; ?>" />
+                        <button type="submit" class="btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/>
+                            </svg>
+                        </button>
+                    </form>
+
                 </div>
+
                 <?php
                 }
                 ?>
@@ -312,9 +329,7 @@ class Products extends view
                 </div>
 
                 <div class="tf">
-                    <div class="row layout-inline">
-                        <div class="col"></div>
-                    </div>
+
                     <div class="row layout-inline">
                         <div class="col">
                             <p>Total <?php echo $total; ?></p>
@@ -323,7 +338,7 @@ class Products extends view
                         <div class="col">
                             <form method="post" action="http://localhost/Software-Engineering/public/pages/cart?action=goto-checkout">
                                 <input type="hidden" name="CartTotal" value="<?php echo $total; ?>" />
-                                <button class="btn btn-update">Checkout</button>
+                                <button class="btn btn-update mb-0">Checkout</button>
                             </form>
                         </div>
                     </div>

@@ -35,8 +35,15 @@ class Pages extends Controller
      public function products()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $this->productsQuantity = json_decode($_POST['ProductsQty'],true);
-            $this->addProductToCart($_POST['product_id'], $_POST['quantity']);
+            $queryString = array();
+            parse_str($_SERVER['QUERY_STRING'], $queryString);
+            if(ISSET($queryString['action']) && $queryString['action'] == 'removeFromCart') {
+                $this->removeProductFromCart($_POST['product_id']);
+            }
+            else {
+                $this->productsQuantity = json_decode($_POST['ProductsQty'], true);
+                $this->addProductToCart($_POST['product_id'], $_POST['quantity']);
+            }
 
         }
 
@@ -67,6 +74,7 @@ class Pages extends Controller
 
     function removeProductFromCart($productID){
         unset($this->productsQuantity[(string)$productID]);
+        $_SESSION['productsQuantity'] = $this->productsQuantity;
     }
 
     function emptyCart(){
