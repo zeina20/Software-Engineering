@@ -20,7 +20,7 @@ class AddProducts extends View
     <div class="col-md-6 mx-auto">
     <div class="card card-body bg-light mt-5">
     <h2>Add a Product</h2>
-    <form action="$action" method="post">
+    <form action="$action" method="post" enctype="multipart/form-data">
 EOT;
     echo $text;
     $text = <<<EOT
@@ -51,7 +51,7 @@ EOT;
 
     <p>
     <label for="picture"> Add Image</label>
-    <input type="file" value="productpicture" name="picture">
+    <input type="file" name="picture">
     </p>
     <div class="container">
       <div class="row mt-4">

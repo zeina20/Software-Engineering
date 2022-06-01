@@ -1,4 +1,5 @@
 <?php
+require_once APPROOT . '/models/AddProductsModel.php';
 class Pages extends Controller
 {
 
@@ -108,16 +109,17 @@ class Pages extends Controller
             $picture=$_FILES['picture']['name'];
             $picture_tmp=$_FILES['picture']['tmp_name'];
 
-            move_uploaded_file($picture_tmp,"C:\xampp\htdocs\Software-Engineering\public\images".$picture);
-
+            
+            die();
 
             $addProductsModel->setProductName(trim($_POST['productname']));
-            $addProductsModel->setProductID(trim($_POST['product_id']));
-            $addProductsModel->setDescription(trim($_POST['description']));
-            $addProductsModel->setQuantity(trim($_POST['quantity']));
-            $addProductsModel->setPrice(trim($_POST['price']));
-            $addProductsModel->setPicture($_FILES['picture']['name']);
+            $addProductsModel->setProductDescription(trim($_POST['description']));
+            $addProductsModel->setProductQuantity(trim($_POST['quantity']));
+            $addProductsModel->setProductPrice(trim($_POST['price']));
+            $addProductsModel->setProductPicture($_FILES['picture']['name']);
             $addProductsModel->Add();
+
+            move_uploaded_file($picture_tmp,".\\images\\".$picture);
             redirect('pages/admin');
 
         }
