@@ -157,17 +157,14 @@ class Pages extends Controller
             $picture=$_FILES['picture']['name'];
             $picture_tmp=$_FILES['picture']['tmp_name'];
 
-            
-            die();
-
             $addProductsModel->setProductName(trim($_POST['productname']));
             $addProductsModel->setProductDescription(trim($_POST['description']));
             $addProductsModel->setProductQuantity(trim($_POST['quantity']));
             $addProductsModel->setProductPrice(trim($_POST['price']));
             $addProductsModel->setProductPicture($_FILES['picture']['name']);
-            $addProductsModel->Add();
+            $productId = $addProductsModel->Add();
 
-            move_uploaded_file($picture_tmp,".\\images\\".$picture);
+            move_uploaded_file($picture_tmp,".\\products\\".$productId."-".$picture);
             redirect('pages/admin');
 
         }
@@ -178,13 +175,39 @@ class Pages extends Controller
     }
 
     public function DeleteProducts($productid){
+        $deleteModel = $this->getModel();
+        $deleteModel->Delete($productid);
         $viewPath = VIEWS_PATH . 'pages/DeleteProducts.php';
         require_once $viewPath;
         $DeleteProductsView = new DeleteProducts($this->getModel(), $this);
         $DeleteProductsView->output();
     }
 
-    public function EditProducts($productid){
+    public function EditProducts($productId){
+
+        $productModel = $this->loadModel('ProductsModel');
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $oldProduct = $productModel->getProductById($productId)[0];
+            $editModel = $this->getModel();
+
+            $editModel->setProductName(trim($_POST['productname']));
+            $editModel->setDescription(trim($_POST['description']));
+            $editModel->setQuantity(trim($_POST['quantity']));
+            $editModel->setPrice(trim($_POST['price']));
+            if(ISSET($_FILES) && count($_FILES) > 0){
+                $picture=$_FILES['picture']['name'];
+                $picture_tmp=$_FILES['picture']['tmp_name'];
+                unlink(".\\products\\".$productId."-".$oldProduct->picture);
+                move_uploaded_file($picture_tmp,".\\products\\".$productId."-".$picture);
+                $editModel->setPicture($_FILES['picture']['name']);
+            }
+            
+            $editModel->Edit($productId);
+        }
+
+       
+        $this->product = $productModel->getProductById($productId)[0];
+        
         $viewPath = VIEWS_PATH . 'pages/EditProducts.php';
         require_once $viewPath;
         $EditProductsView = new EditProducts($this->getModel(), $this);

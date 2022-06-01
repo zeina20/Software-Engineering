@@ -169,7 +169,7 @@ class Admin extends View {
                 <th>Price</th>
                 <th>Edit</th>
                 <th>Delete</th>
-			</tr>;
+			</tr>
             <?php
 			foreach ($products as $product){
              ?>
@@ -179,9 +179,12 @@ class Admin extends View {
                     <td> <?php echo $product->description;?></td>
                     <td> <?php echo $product->quantity;?></td>
                     <td> <?php echo $product->price;?></td>
-
-                    
-                    <td><a href="<?php url('DeleteProducts/'.$product['product_id']) ?>" class="btn btn-danger">Delete</a></td>
+                    <td>
+                        <a href="<?php echo 'EditProducts/'.$product->product_id; ?>" class="btn btn-primary">Edit</a>
+                    </td>
+                    <td>
+                        <a href="<?php echo 'DeleteProducts/'.$product->product_id; ?>" class="btn btn-danger">Delete</a>
+                    </td>
                     
                 </tr>
 

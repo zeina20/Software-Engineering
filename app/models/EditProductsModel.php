@@ -64,11 +64,15 @@ public function setPicture($picture){
     $this->picture=$picture;
 }
 
-    public function getEdit($productid)
+    public function Edit($productid)
     {
-        $this->dbh->query("SELECT FROM products WHERE productid=$productid");
-        $this->dbh->bind(':productid', $this->productid);
-        $prodRecord = $this->dbh->resultSet();
+        $this->dbh->query("UPDATE `products` SET `productname` = :productname, `picture` = :picture, `description` = :description, `quantity` = :quantity, `price` = :price WHERE `products`.`product_id` = ".$productid);
+        $this->dbh->bind(':productname', $this->productname);
+        $this->dbh->bind(':picture', $this->picture);
+        $this->dbh->bind(':description', $this->description);
+        $this->dbh->bind(':quantity', $this->quantity);
+        $this->dbh->bind(':price', $this->price);
+        $prodRecord = $this->dbh->execute();
         return $prodRecord;
     }
 }

@@ -424,7 +424,7 @@ class Products extends view
                     <form method="post" action="Products">
                         <div class="mt-2 f-16"><strong><?php echo $product->productname; ?></strong></div>
                         <div class="product-image"><img
-                                    src="data:image/jpeg;base64,<?php echo base64_encode($product->picture); ?>"></div>
+                                    src="../products/<?php echo $product->product_id."-".$product->picture; ?>"></div>
                         <div class="product-price"><?php echo $product->description; ?></div>
                         <div class="product-price">Qty: <?php echo $product->quantity; ?> Price:
                             $<?php echo $product->price; ?></div>

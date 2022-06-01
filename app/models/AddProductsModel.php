@@ -73,6 +73,7 @@ class AddProductsModel extends ProductsModel
         $this->dbh->bind(':description', $this->description);
         $this->dbh->bind(':quantity', $this->quantity);
         $this->dbh->bind(':price', $this->price);
-        return $this->dbh->execute();
+        $this->dbh->execute();
+        return $this->dbh->lastInsertId();
     }
 }
