@@ -93,18 +93,28 @@ class Pages extends Controller
         $adminView = new Admin($this->getModel(), $this);
         $adminView->output();
     }
+
     public function Cart()
     {
         $registerModel = $this->getModel();
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $this->addProductToCart($_POST['product_id'], $_POST['quantity']);
-            $this->products();
+            $queryString = array();
+            parse_str($_SERVER['QUERY_STRING'], $queryString);
+            if($queryString['action'] == 'checkout'){
+                $this->productsQuantity = json_decode($_POST['CartProductsQty'],true);
+                $this->total = $_POST['CartTotal'];
+                $viewPath = VIEWS_PATH . 'pages/Cart.php';
+                require_once $viewPath;
+                $CartView = new Cart($this->getModel(), $this);
+                $CartView->output();
+            }
+            else {
+                $this->addProductToCart($_POST['product_id'], $_POST['quantity']);
+                $this->products();
+            }
         }
         else {
-            $viewPath = VIEWS_PATH . 'pages/Cart.php';
-            require_once $viewPath;
-            $CartView = new Cart($this->getModel(), $this);
-            $CartView->output();
+            echo 'go add something first!';
         }
     }
 
