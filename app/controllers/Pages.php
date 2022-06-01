@@ -116,8 +116,12 @@ class Pages extends Controller
                     $orderProduct->insert($orderId, $key, $value);
                 }
 
-                echo 'Done your order ID is '.$orderId;
                 session_destroy();
+                $viewPath = VIEWS_PATH . 'pages/OrderSuccess.php';
+                require_once $viewPath;
+                $OrderSuccessView = new OrderSuccess($this->getModel(), $this);
+                $OrderSuccessView->orderId = $orderId;
+                $OrderSuccessView->output();
             }
             else {
                 $this->addProductToCart($_POST['product_id'], $_POST['quantity']);
