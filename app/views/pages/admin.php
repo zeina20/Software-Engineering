@@ -1,20 +1,15 @@
 <?php 
+require_once APPROOT . '/controllers/Pages.php';
 class Admin extends View {
 
    
     public function output() {
         require APPROOT . '/views/inc/header.php';
-    //$obj=$this->model->getAllProducts();
-  // $ad=$this->model->getAllProducts();
-    //$this->getAllProducts();
 
-     function getAllProducts (){
-        //$obj=new ProductsModel();
-       $obj=$this->model->getAllProducts();
-      
-    }
 
-    $text = <<<EOT
+  
+?>
+  
     <html>
     <head>
     <meta charset="utf-8">
@@ -46,48 +41,7 @@ class Admin extends View {
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-success sidebar sidebar-dark accordion" id="accordionSidebar">
 
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">Egyeuro Admin Profile</div>
-            </a>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-            
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-         
-
-          
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-          
-
-           
-
-
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-
-            <!-- Sidebar Message -->
-            <div class="sidebar-card d-none d-lg-flex">
-                <img class="sidebar-card-illustration mb-2" src="http://localhost/Software-Engineering/public/images/egyeurologo.jpg" alt="...">
-                <p class="text-center mb-2"><strong>Egyeuro</strong>admin can add, delete, edit products</p>
-            </div>
+        
 
         </ul>
         <!-- End of Sidebar -->
@@ -125,10 +79,10 @@ class Admin extends View {
 
                         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
                         <li class="nav-item dropdown no-arrow d-sm-none">
-                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                            <!-- <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-search fa-fw"></i>
-                            </a>
+                            </a> -->
                        
                         </li>
 
@@ -180,7 +134,7 @@ class Admin extends View {
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Admin Dashboard</h1>
                 
                     </div>
 
@@ -190,42 +144,56 @@ class Admin extends View {
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-dark">ADMIN Profile
-                <a href="hr-add.php" class="btn btn-success float-right">Add Product</a>
+                <a href="AddProducts" class="btn btn-success float-right">Add Product</a>
+               
 
             </h6>
         </div>
 
         <div class="card-body">
 
+        <?php
+      $products=$this->model->getAllProducts();
 
+       ?>
 
             <div class="table-responsive">
+                
                
-    EOT;
-     echo $text;
-            $str="<table class='table' width=100%>
-                    <thead>
-                        <tr>
-                            <th>Product Name</th>
-                            <th>Product_ID</th>
-                            <th>Quantity</th>
-                            <th>Order_ID</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
-                        </tr>
-                    </thead>";
-                    foreach($obj as $x)
-				$str.="<tr><td>".$x->productname."</td><td>".$x->productid."</td><td>".$x->quantity."</td><td>".$x->orderid."</td></tr>";
-		//var_dump($Ent[0]->Name);	
-$str.="</table>";
-    echo $str;
-    $text2=<<<EOT
-                    <tbody>
-   
-                 
+            <table class='table' width=100%>
+			<tr>
+				<th>Product Name</th>
+				<th>Product_ID</th>
+                <th>Description</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Edit</th>
+                <th>Delete</th>
+			</tr>;
+            <?php
+			foreach ($products as $product){
+             ?>
+                <tr>
+                    <td> <?php echo $product->productname;?></td>
+                    <td> <?php echo $product->product_id;?></td>
+                    <td> <?php echo $product->description;?></td>
+                    <td> <?php echo $product->quantity;?></td>
+                    <td> <?php echo $product->price;?></td>
 
-   
-    </tbody>
+                    
+                    <td><a href="<?php url('DeleteProducts/'.$product['product_id']) ?>" class="btn btn-danger">Delete</a></td>
+                    
+                </tr>
+
+               
+              
+                  
+            <?php
+            }
+            
+        
+ ?>
+    
     </table>
             
      </div>
@@ -293,21 +261,7 @@ $str.="</table>";
         <i class="fas fa-angle-up"></i>
     </a>
 
-    <!-- Logout Modal-->
-    // <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    //     aria-hidden="true">
-    //     <div class="modal-dialog" role="document">
-    //         <div class="modal-content">
-    //             <div class="modal-header">
-    //                 <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-    //                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-    //                     <span aria-hidden="true">×</span>
-    //                 </button>
-    //             </div>
-            
-    //         </div>
-    //     </div>
-    // </div>
+   
 
     <!-- Bootstrap core JavaScript-->
     <script src="http://localhost/Software-Engineering/app/Theme/vendor/jquery/jquery.min.js"></script>
@@ -330,9 +284,8 @@ $str.="</table>";
 
      </body>
     </html>
-    EOT;
-    echo $text2;
-   
+    
+   <?php
     require APPROOT . '/views/inc/footer.php';
     }
 }
