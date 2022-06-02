@@ -13,21 +13,27 @@ class Users extends Controller
 
             //validation
             if (empty($registerModel->getName())) {
-                $registerModel->setNameErr('Please enter a name');
+                echo 'Please enter a name';
+                return;
             }
             if (empty($registerModel->getEmail())) {
-                $registerModel->setEmailErr('Please enter an email');
+                echo 'Please enter an email';
+                return;
             } elseif ($registerModel->emailExist($_POST['email'])) {
-                $registerModel->setEmailErr('Email is already registered');
+                echo 'Email is already registered';
+                return;
             }
             if (empty($registerModel->getPassword())) {
-                $registerModel->setPasswordErr('Please enter a password');
+                echo 'Please enter a password';
+                return;
             } elseif (strlen($registerModel->getPassword()) < 4) {
-                $registerModel->setPasswordErr('Password must contain at least 4 characters');
+                echo 'Password must contain at least 4 characters';
+                return;
             }
 
             if ($registerModel->getPassword() != $registerModel->getConfirmPassword()) {
-                $registerModel->setConfirmPasswordErr('Passwords do not match');
+                echo 'Passwords do not match';
+                return;
             }
 
             if (
@@ -42,7 +48,9 @@ class Users extends Controller
                 if ($registerModel->signup()) {
                     //header('location: ' . URLROOT . 'users/login');
                     flash('register_success', 'You have registered successfully');
-                    redirect('users/login');
+                    //redirect('users/login');
+                    echo 'You have registered successfully';
+                    return;
                 } else {
                     die('Error in sign up');
                 }

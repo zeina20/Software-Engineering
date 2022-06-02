@@ -23,121 +23,153 @@ EOT;
     <div class="row">
     <div class="col-md-6 mx-auto">
     <div class="card card-body bg-light mt-5">
-    <h2>Sign Up</h2>
+    
     <form action="$action" method="post">
 EOT;
     echo $text;
-    $this->printName();
-    $this->printEmail();
-    $this->printPassword();
-    $this->printConfirmPassword();
+    
     $text = <<<EOT
     <style>
 
-body {
-  font: 100% / 1.414 "Open Sans", "Roboto", arial, sans-serif;
-  background: #e9e9e9;
-}
-a,
-[type="submit"] {transition: all .25s ease-in;}
-.signup__container {
-  position: absolute;
-  top: 50%;
-  right: 50;
-  left: 50;
-  margin-right: 50;
-  margin-left: 50;
-  transform: translateY(-50%);
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: remy(800px);
-  height: remy(480px);
-  border-radius: remy(3px);
-  box-shadow: 0px remy(3px) remy(7px) rgba(0,0,0,.25);
-}
-.signup__overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #B0EDA9;
-}
-.container__child {
-  width: 50%;
-  height: 100%;
-  color: #fff;
-}
-.signup__thumbnail {
-  position: relative;
-  padding: 2rem;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  background: url(http://ultraimg.com/images/spectre-login.jpg);
-  background-repeat: no-repeat;
-  background-position: top center;
-  background-size: cover;
-}
-.thumbnail__content,
-.thumbnail__links {
-  position: relative;
-  z-index: 2;  
-}
-.thumbnail__content {align-self: center;}
-h1,
-h2 {
-  font-weight: 700;
-  color:black;  
-}
-.heading--primary {font-size: 1.999rem;}
-.heading--secondary {font-size: 1.414rem;}
-.thumbnail__links {
-  align-self: flex-end;
-  width: 100%;
-}
-.thumbnail__links a {
-  font-size: 1rem;
-  color: #fff;
-  &:focus,
-  &:hover {color: rgba(255,255,255,.5);}
-}
-.signup__form {
-  padding: 2.5rem;
-  background: #fafafa;
-}
-label {
-  font-size: .85rem;
-  text-transform: uppercase;
-  color: black;
-}
-.form-control {
-  background-color: transparent;
-  border-top: 0;
-  border-right: 0;
-  border-left: 0;
-  border-radius: 0;
-  &:focus {border-color: black;}
-}
-[type="text"] {color: #111;}
-[type="password"] {color: #111;}
-.btn--form {
-  padding: 10px;
-  border-radius:20px;
-  font-size: .80rem;
-  font-weight: 600;
-  color: white;
-  background: black;
-  border-radius: remy(35px);
+  body {
+    font: 100% / 1.414 "Open Sans", "Roboto", arial, sans-serif;
+    background: #e9e9e9;
+  }
+  a,
+  [type="submit"] {transition: all .25s ease-in;}
+  .signup__container {
+    position: absolute;
+    top: 50%;
+    right: 50;
+    left: 50;
+    margin-right: 50;
+    margin-left: 50;
+    transform: translateY(-50%);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: remy(800px);
+    height: remy(480px);
+    border-radius: remy(3px);
+    box-shadow: 0px remy(3px) remy(7px) rgba(0,0,0,.25);
+  }
+  .signup__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #B0EDA9;
+  }
+  .container__child {
+    width: 50%;
+    height: 100%;
+    color: #fff;
+  }
+  .signup__thumbnail {
+    position: relative;
+    padding: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    background: url(http://ultraimg.com/images/spectre-login.jpg);
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: cover;
+  }
+  .thumbnail__content,
+  .thumbnail__links {
+    position: relative;
+    z-index: 2;  
+  }
+  .thumbnail__content {align-self: center;}
+  h1,
+  h2 {
+    font-weight: 700;
+    color:black;  
+  }
+  .heading--primary {font-size: 1.999rem;}
+  .heading--secondary {font-size: 1.414rem;}
+  .thumbnail__links {
+    align-self: flex-end;
+    width: 100%;
+  }
+  .thumbnail__links a {
+    font-size: 1rem;
+    color: #fff;
     &:focus,
-    &:hover {background: lighten(#111, 13%);}
-}
+    &:hover {color: rgba(255,255,255,.5);}
+  }
+  .signup__form {
+    padding: 2.5rem;
+    background: #fafafa;
+  }
+  label {
+    font-size: .85rem;
+    text-transform: uppercase;
+    color: black;
+  }
+  .form-control {
+    background-color: transparent;
+    border-top: 0;
+    border-right: 0;
+    border-left: 0;
+    border-radius: 0;
+    &:focus {border-color: black;}
+  }
+  [type="text"] {color: #111;}
+  [type="password"] {color: #111;}
+  .btn--form {
+    padding: 10px;
+    border-radius:20px;
+    font-size: .80rem;
+    font-weight: 600;
+    color: white;
+    background: black;
+    border-radius: remy(35px);
+      &:focus,
+      &:hover {background: lighten(#111, 13%);}
+  }
 </style>
 
 
 <script >
+
+function submitFormData(event) {
+
+  // form values
+  var name = document.getElementById('username').value;
+  var email = document.getElementById('email').value;
+  var password = document.getElementById('password').value;
+  var confirmpassword = document.getElementById('confirmpassword').value;
+
+  var http = new XMLHttpRequest();
+
+  var url = './register';
+  var params = 'name=' + name + '&email=' + email + '&password=' + password + '&confirm_password=' + confirmpassword;
+  http.open('POST', url, true);
+
+  //Send the header information
+  http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+  http.onreadystatechange = function() {
+      if (http.readyState == 4 && http.status == 200) {
+         
+          console.log(http.responseText);
+          if(http.responseText == 'You have registered successfully') {
+            alert("Congrats, now you are the admin!");
+            window.location.replace('./login')
+          }
+          else {
+            alert(http.responseText);
+          }
+      }
+  }
+
+  // Send params with request
+  http.send(params);
+}
 function loadDoc() {
     
   var xhttp = new XMLHttpRequest();
@@ -155,7 +187,7 @@ function loadDoc() {
 </script>
 
 
-<div class="signup__container">
+<div class="signup__container" style="margin-top:30%">
   <div class="container__child signup__thumbnail">
     <div class="thumbnail__content text-center">     
       <h1 class="heading--primary"><center>Sign Up Here!</center></h1>
@@ -172,7 +204,7 @@ function loadDoc() {
     
   </div>
   <div class="container__child signup__form">
-    <form action="#">
+    <form action="javascript:void(0);" id="frmdata" >
       <div class="form-group">
         <label for="username">Username</label>
         <input class="form-control" type="text" name="username" id="username" required />
@@ -195,7 +227,7 @@ function loadDoc() {
           <div id="demo">
           <div class="btn btn--form">             
 
-<button type="button" onclick="loadDoc()"class="btnContact">register</button>
+<button type="button" onclick="submitFormData(this)" class="btnContact">register</button>
 </div>
                         </div>
                         </div>

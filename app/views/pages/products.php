@@ -285,10 +285,15 @@ class Products extends view
                 <div class="col col-price align-center "> Action</div>
                 <?php
                 $products = $this->model->getAllProducts();
+                $productsList = $products;
+                //search for a product
+                if(ISSET($_GET['find'])){
+                  $productsList = $this->model->searchForProduct($_GET['find']);
+                }
                 $total = 0;
                 foreach ($this->controller->productsQuantity as $key => $value){
-                $product = $this->controller->getProductById($key, $products);
-                $total += $value * $product->price;
+                  $product = $this->controller->getProductById($key, $products);
+                  $total += $value * $product->price;
                 ?>
             </div>
 
@@ -417,7 +422,7 @@ class Products extends view
         <div id="product-grid" style="display: flex;flex-wrap: wrap;">
 
             <?php
-            foreach ($products as $product) {
+            foreach ($productsList as $product) {
 
           
                 ?>
@@ -442,12 +447,7 @@ class Products extends view
 
 
                 <?php
-                //search for a product
-                if(isset($_GET['find'])){
-                    $find= '%' . $_GET['find'] . '%';
-                    $this->dbh->query('SELECT * FROM products WHERE productname like :find');
-                    return $this->dbh->resultSet();
-                }
+                
             }
                   
             ?>

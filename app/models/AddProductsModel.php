@@ -1,5 +1,5 @@
 <?php
-require_once 'ProductsModel.php';
+require_once 'productsModel.php';
 class AddProductsModel extends ProductsModel
 {
     public  $title = 'Add Products Page';

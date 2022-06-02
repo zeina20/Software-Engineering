@@ -33,6 +33,11 @@ class ProductsModel extends model
 
         return $this->dbh->resultSet();
     }
+
+    public function searchForProduct($find) {
+        $this->dbh->query('select * from products where productname LIKE "%'.$find.'%"');
+        return $this->dbh->resultSet();
+    }
     
 
 }

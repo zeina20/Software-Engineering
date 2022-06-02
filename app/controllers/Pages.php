@@ -106,10 +106,10 @@ class Pages extends Controller
                 $CartView->output();
             }
             else if($queryString['action'] == 'checkout') {
-                $buyer = $this->loadModel('BuyerModel');
+                $buyer = $this->loadModel('buyerModel');
                 $buyerId = $buyer->insert($_POST['name'], $_POST['email'], $_POST['number'], $_POST['address']);
 
-                $productModel = $this->loadModel('ProductsModel');
+                $productModel = $this->loadModel('productsModel');
                 $products = $productModel->getAllProducts();
                 $total = 0;
                 foreach ($_SESSION['productsQuantity'] as $key => $value) {
@@ -117,10 +117,10 @@ class Pages extends Controller
                     $total += $value * $product->price;
                 }
 
-                $order = $this->loadModel('OrderModel');
+                $order = $this->loadModel('orderModel');
                 $orderId = $order->insert($buyerId, $total);
 
-                $orderProduct = $this->loadModel('OrderProductsModel');
+                $orderProduct = $this->loadModel('orderProductsModel');
                 foreach ($_SESSION['productsQuantity'] as $key => $value) {
                     $orderProduct->insert($orderId, $key, $value);
                 }
@@ -185,7 +185,7 @@ class Pages extends Controller
 
     public function EditProducts($productId){
 
-        $productModel = $this->loadModel('ProductsModel');
+        $productModel = $this->loadModel('productsModel');
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $oldProduct = $productModel->getProductById($productId)[0];
             $editModel = $this->getModel();
