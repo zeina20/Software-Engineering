@@ -418,6 +418,8 @@ class Products extends view
 
             <?php
             foreach ($products as $product) {
+
+          
                 ?>
 
                 <div class="product-item cards" width="200px">
@@ -440,7 +442,15 @@ class Products extends view
 
 
                 <?php
-            } ?>
+                //search for a product
+                if(isset($_GET['find'])){
+                    $find= '%' . $_GET['find'] . '%';
+                    $this->dbh->query('SELECT * FROM products WHERE productname like :find');
+                    return $this->dbh->resultSet();
+                }
+            }
+                  
+            ?>
         </div>
         <?php
         require APPROOT . '/views/inc/footer.php';
