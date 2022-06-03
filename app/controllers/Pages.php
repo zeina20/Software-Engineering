@@ -1,5 +1,5 @@
 <?php
-require_once APPROOT . '/models/AddProductsModel.php';
+require_once APPROOT . '/models/addProductsModel.php';
 class Pages extends Controller
 {
 
@@ -20,7 +20,7 @@ class Pages extends Controller
 
     public function about()
     {
-        $viewPath = VIEWS_PATH . 'pages/About.php';
+        $viewPath = VIEWS_PATH . 'pages/about.php';
         require_once $viewPath;
         $aboutView = new About($this->getModel(), $this);
         $aboutView->output();
@@ -216,6 +216,23 @@ class Pages extends Controller
         require_once $viewPath;
         $EditProductsView = new EditProducts($this->getModel(), $this);
         $EditProductsView->output();
+    }
+    public function chat(){
+        $viewPath = VIEWS_PATH . 'pages/chat.php';
+        require_once $viewPath;
+        $chatView = new Chat($this->getModel(), $this);
+        $chatView->output();
+
+        $chatModel = $this->getModel();
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+
+            $chatModel->setName(trim($_POST['name']));
+            $chatModel->setEmail(trim($_POST['email']));
+            $chatModel->setMessage(trim($_POST['message']));
+
+            $chatModel->chat();
+        }
     }
 
 
