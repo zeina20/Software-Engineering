@@ -145,7 +145,7 @@ class Admin extends View {
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-dark">ADMIN Profile
                 <a href="AddProducts" class="btn btn-success float-right">Add Product</a>
-               
+                <a href="<?php echo URLROOT . 'users/register'; ?>" class="btn btn-success float-right">Register New Admin</a>
 
             </h6>
         </div>
