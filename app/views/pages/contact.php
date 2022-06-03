@@ -152,7 +152,7 @@ transition: 0.5s;
             <div class="contact" >
               
 
-                <span class="Active" >Chat </span>
+            <a href="chat" class="btn btn-success float-right">Chat</a>
                
             </div>
         </div>
